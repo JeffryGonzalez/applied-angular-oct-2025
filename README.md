@@ -3,7 +3,6 @@
 ## `.vscode` Folder
 
 - `extensions.json` - has additional extensions I recommend for doing Angular development.
-
   - Angular Language Service (`angular.ng-template`). **Required**
   - Prettier - (`esbenp.prettier-vscode`) - code formatting.
   - ESLint - (`dbaeumer.vscode-eslint`) - Linting for JS/TS
@@ -33,3 +32,7 @@ npx degit hypertheorytraining/angular-starter
 npm i
 code .
 ```
+
+## Notes
+
+Jeff Was Here

@@ -36,3 +36,11 @@ code .
 ## Notes
 
 Jeff Was Here
+
+## Getting My Code
+
+This command will pull down my latest "push" into a directory in your repository called "instructor".
+
+```sh
+npx gitpick -o JeffryGonzalez/applied-angular-oct-2025 instructor
+```

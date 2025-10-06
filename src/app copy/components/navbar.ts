@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { NavbarList } from './navbar-list';
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, NavbarList],
+  imports: [RouterLink, RouterLinkActive],
   template: `
     <div class="navbar bg-base-100 shadow-sm">
       <div class="navbar-start">
@@ -30,14 +29,26 @@ import { NavbarList } from './navbar-list';
             tabindex="0"
             class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
-            <app-navbar-list [links]="links()" />
+            @for (link of links(); track link.path) {
+              <li>
+                <a [routerLink]="link.path" routerLinkActive="underline">{{
+                  link.label
+                }}</a>
+              </li>
+            }
           </ul>
         </div>
         <a routerLink="/" class="btn btn-ghost text-xl">Applied Angular</a>
       </div>
       <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1">
-          <app-navbar-list [links]="links()" />
+          @for (link of links(); track link.path) {
+            <li>
+              <a [routerLink]="link.path" routerLinkActive="underline">{{
+                link.label
+              }}</a>
+            </li>
+          }
         </ul>
       </div>
       <div class="navbar-end">

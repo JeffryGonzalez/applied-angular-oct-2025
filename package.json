@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test:system": "playwright test --ui",
     "test:unit": "ng test",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "get-jeff": "npx gitpick -o JeffryGonzalez/applied-angular-oct-2025 instructor"
   },
   "private": true,
   "dependencies": {

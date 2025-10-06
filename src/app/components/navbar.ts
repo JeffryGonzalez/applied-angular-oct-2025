@@ -1,9 +1,10 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [],
+  imports: [RouterLink, RouterLinkActive],
   template: `
     <div class="navbar bg-base-100 shadow-sm">
       <div class="navbar-start">
@@ -28,32 +29,26 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
             tabindex="0"
             class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
-            <li><a>Item 1</a></li>
-            <li>
-              <a>Parent</a>
-              <ul class="p-2">
-                <li><a>Submenu 1</a></li>
-                <li><a>Submenu 2</a></li>
-              </ul>
-            </li>
-            <li><a>Item 3</a></li>
+            @for (link of links(); track link.path) {
+              <li>
+                <a [routerLink]="link.path" routerLinkActive="underline">{{
+                  link.label
+                }}</a>
+              </li>
+            }
           </ul>
         </div>
-        <a class="btn btn-ghost text-xl">Applied Angular Oct 2025</a>
+        <a routerLink="/" class="btn btn-ghost text-xl">Applied Angular</a>
       </div>
       <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1">
-          <li><a>Item 1</a></li>
-          <li>
-            <details>
-              <summary>Parent</summary>
-              <ul class="p-2">
-                <li><a>Submenu 1</a></li>
-                <li><a>Submenu 2</a></li>
-              </ul>
-            </details>
-          </li>
-          <li><a>Item 3</a></li>
+          @for (link of links(); track link.path) {
+            <li>
+              <a [routerLink]="link.path" routerLinkActive="underline">{{
+                link.label
+              }}</a>
+            </li>
+          }
         </ul>
       </div>
       <div class="navbar-end">
@@ -63,4 +58,15 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   `,
   styles: ``,
 })
-export class Navbar {}
+export class Navbar {
+  links = signal([
+    {
+      label: 'Dashboard',
+      path: '/dashboard',
+    },
+    {
+      label: 'Support',
+      path: '/support',
+    },
+  ]);
+}

@@ -7,9 +7,13 @@ import { NavbarLink } from '../types';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, RouterLinkActive],
   template: `
-    <a [routerLink]="link().path" routerLinkActive="underline">{{
-      link().label
-    }}</a>
+    <a
+      [routerLink]="link().path"
+      #rla="routerLinkActive"
+      [class.opacity-60]="rla.isActive === false"
+      [routerLinkActive]="['underline', 'uppercase', 'font-bold']"
+      >{{ link().label }}</a
+    >
   `,
   styles: ``,
 })

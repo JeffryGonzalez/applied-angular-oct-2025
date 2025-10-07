@@ -1,3 +1,3 @@
-import { WELCOME_HANDLERS } from './welcome-handlers';
+import { articlesHandlers } from './links-handler';
 
-export const handlers = [...WELCOME_HANDLERS];
+export const handlers = [...articlesHandlers];

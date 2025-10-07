@@ -17,6 +17,22 @@ import { DatePipe } from '@angular/common';
       @if (linksResource.isLoading()) {
         <div class="alert alert-info">Your Data is Loading! Chill out!</div>
       } @else {
+        <div class="join">
+          <button
+            (click)="sortOptions.set('NewestFirst')"
+            [disabled]="sortOptions() === 'NewestFirst'"
+            class="btn btn-ghost join-item"
+          >
+            Newest First
+          </button>
+          <button
+            (click)="sortOptions.set('OldestFirst')"
+            [disabled]="sortOptions() === 'OldestFirst'"
+            class="btn btn-ghost join-item"
+          >
+            Oldest First
+          </button>
+        </div>
         @for (link of sortedList(); track link.id) {
           <div class="card w-96 bg-base-100 card-sm shadow-sm">
             <div class="card-body">

@@ -15,6 +15,7 @@ type GolfState = {
   strokeCount: number;
   par: GolfPar | null;
 };
+// a service is some code that OWNS some data, and nobody can touch that data, change that date, without asking the service.
 
 export const GolfStore = signalStore(
   withProps(() => ({

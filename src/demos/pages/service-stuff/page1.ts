@@ -1,6 +1,6 @@
-import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
-import { DemoService } from './demo-service';
 import { DatePipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { DemoService } from '../../../shared/demo-service';
 
 @Component({
   selector: 'app-demos-service-stuff',

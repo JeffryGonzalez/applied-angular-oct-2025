@@ -14,6 +14,15 @@ module.exports = tseslint.config(
     ],
     processor: angular.processInlineTemplates,
     rules: {
+      "no-restricted-syntax": [
+        "error",
+        {
+          selector:
+            "Decorator[expression.callee.name='Injectable'] > CallExpression[arguments.length=1] > ObjectExpression > Property[key.name='providedIn'][value.value='root']",
+          message:
+            "Are you sure you don't want to just create a provider for this?",
+        },
+      ],
       "@typescript-eslint/consistent-type-definitions": "off",
       "@angular-eslint/directive-selector": [
         "error",

@@ -3,9 +3,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  effect,
   signal,
 } from '@angular/core';
-import { ApiLinkItem } from '../types';
+import { ApiLinkItem, SortingOptions } from '../types';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -61,8 +62,20 @@ export class List {
   linksResource = httpResource<ApiLinkItem[]>(() => ({
     url: 'https://api.some-fake-server.com/links',
   }));
+  sortOptions = signal<SortingOptions>('OldestFirst');
 
-  sortOptions = signal<'NewestFirst' | 'OldestFirst'>('OldestFirst');
+  constructor() {
+    const savedSortOption = localStorage.getItem('sort-order');
+    if (savedSortOption !== null) {
+      const sortBy = savedSortOption as SortingOptions; // "as" means you are a bad typescript programmer. More on this later.
+      this.sortOptions.set(sortBy);
+    }
+    effect(() => {
+      const nowSortingBy = this.sortOptions();
+      localStorage.setItem('sort-order', nowSortingBy);
+      console.log('Sort Order Changed To', nowSortingBy);
+    });
+  }
 
   sortedList = computed(() => {
     const links = this.linksResource.value() || [];

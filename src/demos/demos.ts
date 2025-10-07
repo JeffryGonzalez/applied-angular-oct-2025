@@ -10,6 +10,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
     <div class="flex flex-row gap-4 p-8">
       <a class="link" routerLink="signals">Signals</a>
       <a class="link" routerLink="signals2">Golf With Signals</a>
+      <a class="link" routerLink="services">Service Demo</a>
     </div>
 
     <router-outlet />

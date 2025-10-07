@@ -1,13 +1,13 @@
+import { DatePipe } from '@angular/common';
 import { httpResource } from '@angular/common/http';
 import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  effect,
-  signal,
+  inject,
 } from '@angular/core';
-import { ApiLinkItem, SortingOptions } from '../types';
-import { DatePipe } from '@angular/common';
+import { LinksStore } from '../stores/links';
+import { ApiLinkItem } from '../types';
 
 @Component({
   selector: 'app-links-list',
@@ -18,22 +18,6 @@ import { DatePipe } from '@angular/common';
       @if (linksResource.isLoading()) {
         <div class="alert alert-info">Your Data is Loading! Chill out!</div>
       } @else {
-        <div class="join">
-          <button
-            (click)="sortOptions.set('NewestFirst')"
-            [disabled]="sortOptions() === 'NewestFirst'"
-            class="btn btn-ghost join-item"
-          >
-            Newest First
-          </button>
-          <button
-            (click)="sortOptions.set('OldestFirst')"
-            [disabled]="sortOptions() === 'OldestFirst'"
-            class="btn btn-ghost join-item"
-          >
-            Oldest First
-          </button>
-        </div>
         @for (link of sortedList(); track link.id) {
           <div class="card w-96 bg-base-100 card-sm shadow-sm">
             <div class="card-body">
@@ -62,24 +46,13 @@ export class List {
   linksResource = httpResource<ApiLinkItem[]>(() => ({
     url: 'https://api.some-fake-server.com/links',
   }));
-  sortOptions = signal<SortingOptions>('OldestFirst');
+  //   sortOptions = signal<SortingOptions>('OldestFirst');
 
-  constructor() {
-    const savedSortOption = localStorage.getItem('sort-order');
-    if (savedSortOption !== null) {
-      const sortBy = savedSortOption as SortingOptions; // "as" means you are a bad typescript programmer. More on this later.
-      this.sortOptions.set(sortBy);
-    }
-    effect(() => {
-      const nowSortingBy = this.sortOptions();
-      localStorage.setItem('sort-order', nowSortingBy);
-      console.log('Sort Order Changed To', nowSortingBy);
-    });
-  }
+  store = inject(LinksStore);
 
   sortedList = computed(() => {
     const links = this.linksResource.value() || [];
-    const sortingBy = this.sortOptions();
+    const sortingBy = this.store.sortingBy();
 
     return [...links].sort((lhs, rhs) => {
       const aDate = new Date(lhs.added);

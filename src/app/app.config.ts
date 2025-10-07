@@ -29,3 +29,13 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch()),
   ],
 };
+
+/* Providers Review
+
+  If I just add to providers a type, like providers: [GolfStore], 
+  that is the same as saying providers: [{provide: GolfStore, useClass: GolfStore}]
+
+
+  builder.Services.AddScoped<IDoGolfStoreSTuff, GolfStore>();
+
+*/

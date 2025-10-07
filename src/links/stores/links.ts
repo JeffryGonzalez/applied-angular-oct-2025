@@ -2,11 +2,15 @@ import {
   patchState,
   signalStore,
   watchState,
+  withComputed,
   withHooks,
   withMethods,
+  withProps,
   withState,
 } from '@ngrx/signals';
-import { SortingOptions } from '../types';
+import { ApiLinkItem, SortingOptions } from '../types';
+import { httpResource } from '@angular/common/http';
+import { computed } from '@angular/core';
 
 type LinksState = {
   sortingBy: SortingOptions;
@@ -14,6 +18,19 @@ type LinksState = {
 export const LinksStore = signalStore(
   withState<LinksState>({
     sortingBy: 'NewestFirst',
+  }),
+
+  withProps(() => ({
+    linksResource: httpResource<ApiLinkItem[]>(() => ({
+      url: 'https://api.some-fake-server.com/links',
+    })),
+  })),
+  withComputed((store) => {
+    return {
+      getNumberOfLinks: computed(
+        () => store.linksResource.value()?.length || 0,
+      ),
+    };
   }),
   withMethods((state) => {
     return {
@@ -23,6 +40,7 @@ export const LinksStore = signalStore(
   }),
   withHooks({
     onInit(store) {
+      // todo -- setInterval(() => store.linksResource.reload(), 5000);
       const savedSortOption = localStorage.getItem('sort-order');
       if (savedSortOption !== null) {
         store.changeSortOrder(savedSortOption as SortingOptions);

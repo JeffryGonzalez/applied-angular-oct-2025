@@ -1,5 +1,4 @@
 import { DatePipe } from '@angular/common';
-import { httpResource } from '@angular/common/http';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,7 +6,6 @@ import {
   inject,
 } from '@angular/core';
 import { LinksStore } from '../stores/links';
-import { ApiLinkItem } from '../types';
 
 @Component({
   selector: 'app-links-list',
@@ -15,43 +13,36 @@ import { ApiLinkItem } from '../types';
   imports: [DatePipe],
   template: `
     <div class="">
-      @if (linksResource.isLoading()) {
-        <div class="alert alert-info">Your Data is Loading! Chill out!</div>
-      } @else {
-        @for (link of sortedList(); track link.id) {
-          <div class="card w-96 bg-base-100 card-sm shadow-sm">
-            <div class="card-body">
-              <h2 class="card-title">{{ link.title }}</h2>
-              <p>
-                {{ link.description }}
-              </p>
-              <div class="justify-end card-actions">
-                <a [href]="link.link" target="_blank" class="btn btn-primary"
-                  >Visit</a
-                >
-                <p>Link {{ link.link }}</p>
-                <p>Added on {{ link.added | date: 'medium' }}</p>
-              </div>
+      @for (link of sortedList(); track link.id) {
+        <div class="card w-96 bg-base-100 card-sm shadow-sm">
+          <div class="card-body">
+            <h2 class="card-title">{{ link.title }}</h2>
+            <p>
+              {{ link.description }}
+            </p>
+            <div class="justify-end card-actions">
+              <a [href]="link.link" target="_blank" class="btn btn-primary"
+                >Visit</a
+              >
+              <p>Link {{ link.link }}</p>
+              <p>Added on {{ link.added | date: 'medium' }}</p>
             </div>
           </div>
-        } @empty {
-          <p>There are no links! Bummer!</p>
-        }
+        </div>
+      } @empty {
+        <p>There are no links! Bummer!</p>
       }
     </div>
   `,
   styles: ``,
 })
 export class List {
-  linksResource = httpResource<ApiLinkItem[]>(() => ({
-    url: 'https://api.some-fake-server.com/links',
-  }));
   //   sortOptions = signal<SortingOptions>('OldestFirst');
 
   store = inject(LinksStore);
 
   sortedList = computed(() => {
-    const links = this.linksResource.value() || [];
+    const links = this.store.linksResource.value() || [];
     const sortingBy = this.store.sortingBy();
 
     return [...links].sort((lhs, rhs) => {

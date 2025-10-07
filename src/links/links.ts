@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { LinksStore } from './stores/links';
 
@@ -8,15 +8,23 @@ import { LinksStore } from './stores/links';
   providers: [LinksStore],
   imports: [RouterLink, RouterOutlet],
   template: `
-    <div class="flex flex-row gap-4">
-      <a class="link" routerLink="list">List</a>
-      <a class="link" routerLink="prefs">Prefs</a>
-    </div>
-
-    <div>
-      <router-outlet />
-    </div>
+    @if (store.linksResource.isLoading() === false) {
+      <div class="flex flex-row gap-4">
+        <a class="link" routerLink="list">List</a>
+        <a class="link" routerLink="prefs">Prefs</a>
+      </div>
+      <div class="alert alert-info">
+        <p>There are {{ store.getNumberOfLinks() }} Links Available!</p>
+      </div>
+      <div>
+        <router-outlet />
+      </div>
+    } @else {
+      <div class="alert alert-warning">Loading your Links</div>
+    }
   `,
   styles: ``,
 })
-export class Links {}
+export class Links {
+  store = inject(LinksStore);
+}

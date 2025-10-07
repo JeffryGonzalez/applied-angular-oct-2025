@@ -1,0 +1,52 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://app.excalidraw.com",
+  "elements": [
+    {
+      "id": "LFjstIt9EAthsuEC4AvOB",
+      "type": "text",
+      "x": 300,
+      "y": 336,
+      "width": 1371.6068115234375,
+      "height": 2030,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 4,
+      "strokeStyle": "solid",
+      "roughness": 0,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "a0",
+      "roundness": null,
+      "seed": 1590060237,
+      "version": 3047,
+      "versionNonce": 1868149101,
+      "isDeleted": false,
+      "boundElements": [],
+      "updated": 1759857415287,
+      "link": null,
+      "locked": false,
+      "text": "State: That which changes with the instance and during the life of the application.\n\nExamples:\n    - What route you are on.\n    - Who the user is (Authentication/Authorization)\n    - What the par for the hole you are golfing is.\n    - How many strokes you have taken on that hole.\n\n\nWhen you load the application there is \"no\" state - it is the \"initial state\"\n    - For example, the angular Router reads the URL and changes the \"state\" of the application to that mode.\n    - User interactions can change the state (changing routes, clicking buttons, filling out forms)\n    - Some state needs \"fetched\" from more durable locations.\n        - More on this below.\n\n\nState in your application can never live longer than the instance of the application.\n- Refreshing the page, closing the browser, etc. wipes out the state.\n\nState in a component lives as long as that component.\n    - Components are \"Destroyed\" when we navigate away from them.\n    - This includes state in HTML elements (like HtmlInputElements on forms)\n    - Components can pass state to the input of a child component.\n        - the \"lifetime\" of that state is bound to the life of the parent component.\n    - Child components can notify the parent of an even through an Output - and the parent\n       can use that to modify state, etc.\n    - IMPORTANT - state in components can only be passed to immediate children through in input,\n       likewise, a child can't talk to it's siblings, or grandparents, etc.\n\n\"Services\" - own some state and all the processing of that state.\n- Can be provided to components (or other services, etc.) through the inject() method.\n\nEvery service in an Angular application needs one or more \"provider\".\n\nServices cannot be injected without a provider.\n\nThe provider is responsible for maintaining the lifetime of that service.\n\n\nServices have to be \"instantiated\" (created), and, possible, \"destroyed\".\n\nServices can be provided:\n    - On a Component's \"providers\" array.\n        - When injected in that component (or any of it's children) a NEW INSTANCE of that service\n           will be created and used.\n        - When the component is destroyed, so is the service.\n    - On a route's \"providers\" array.\n        - When that route is visited, a NEW INSTANCE of that service will be created and used.\n        - It is injectable on that route and all child routes.\n        - It isn't instantiated until it is injected the first time.\n        - It is not destroyed (until the application is destroyed).\n    - In the app.config.ts's \"providers\" array.\n        - Again, every place in your application can now inject this and they will all share an instance*.\n\n* Unless they have a provider (on the route, or a component). \n* @Injectable({providedIn: 'root'}) does not change this behavior at all. \n   - It means you don't have to set up a provider for this, but as soon as you do, you'll have multiple instances.\n",
+      "fontSize": 28,
+      "fontFamily": 6,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "containerId": null,
+      "originalText": "State: That which changes with the instance and during the life of the application.\n\nExamples:\n    - What route you are on.\n    - Who the user is (Authentication/Authorization)\n    - What the par for the hole you are golfing is.\n    - How many strokes you have taken on that hole.\n\n\nWhen you load the application there is \"no\" state - it is the \"initial state\"\n    - For example, the angular Router reads the URL and changes the \"state\" of the application to that mode.\n    - User interactions can change the state (changing routes, clicking buttons, filling out forms)\n    - Some state needs \"fetched\" from more durable locations.\n        - More on this below.\n\n\nState in your application can never live longer than the instance of the application.\n- Refreshing the page, closing the browser, etc. wipes out the state.\n\nState in a component lives as long as that component.\n    - Components are \"Destroyed\" when we navigate away from them.\n    - This includes state in HTML elements (like HtmlInputElements on forms)\n    - Components can pass state to the input of a child component.\n        - the \"lifetime\" of that state is bound to the life of the parent component.\n    - Child components can notify the parent of an even through an Output - and the parent\n       can use that to modify state, etc.\n    - IMPORTANT - state in components can only be passed to immediate children through in input,\n       likewise, a child can't talk to it's siblings, or grandparents, etc.\n\n\"Services\" - own some state and all the processing of that state.\n- Can be provided to components (or other services, etc.) through the inject() method.\n\nEvery service in an Angular application needs one or more \"provider\".\n\nServices cannot be injected without a provider.\n\nThe provider is responsible for maintaining the lifetime of that service.\n\n\nServices have to be \"instantiated\" (created), and, possible, \"destroyed\".\n\nServices can be provided:\n    - On a Component's \"providers\" array.\n        - When injected in that component (or any of it's children) a NEW INSTANCE of that service\n           will be created and used.\n        - When the component is destroyed, so is the service.\n    - On a route's \"providers\" array.\n        - When that route is visited, a NEW INSTANCE of that service will be created and used.\n        - It is injectable on that route and all child routes.\n        - It isn't instantiated until it is injected the first time.\n        - It is not destroyed (until the application is destroyed).\n    - In the app.config.ts's \"providers\" array.\n        - Again, every place in your application can now inject this and they will all share an instance*.\n\n* Unless they have a provider (on the route, or a component). \n* @Injectable({providedIn: 'root'}) does not change this behavior at all. \n   - It means you don't have to set up a provider for this, but as soon as you do, you'll have multiple instances.\n",
+      "autoResize": true,
+      "lineHeight": 1.25
+    }
+  ],
+  "appState": {
+    "gridSize": 20,
+    "gridStep": 5,
+    "gridModeEnabled": false,
+    "viewBackgroundColor": "#ffffff",
+    "lockedMultiSelections": {}
+  },
+  "files": {}
+}

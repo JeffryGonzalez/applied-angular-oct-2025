@@ -2,7 +2,9 @@ import { computed } from '@angular/core';
 import {
   patchState,
   signalStore,
+  watchState,
   withComputed,
+  withHooks,
   withMethods,
   withProps,
   withState,
@@ -52,4 +54,20 @@ export const CounterStore = signalStore(
       return '';
     }),
   })),
+  withHooks({
+    onInit(store) {
+      // look to see if we've stored this before - if we have, use that.
+      const savedCounterJson = localStorage.getItem('counter');
+      if (savedCounterJson !== null) {
+        // turn it into CounterState.
+        const savedState = JSON.parse(savedCounterJson) as CounterState;
+        patchState(store, savedState);
+        // Patch the State
+      }
+      // also, every time the state changes, update the storage.
+      watchState(store, (state) => {
+        localStorage.setItem('counter', JSON.stringify(state));
+      });
+    },
+  }),
 );

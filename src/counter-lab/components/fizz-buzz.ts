@@ -1,13 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CounterStore } from '../stores/counter';
-import { fizzBuzzComputed } from '../utils/math';
 
 @Component({
   selector: 'app-counter-fizzbuzz',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
   template: `
-    @switch (fizzBuzz()) {
+    @switch (store.fizzBuzz()) {
       @case ('FizzBuzz') {
         <div class="alert alert-success alert-dash">FizzBuzz</div>
       }
@@ -23,6 +22,4 @@ import { fizzBuzzComputed } from '../utils/math';
 })
 export class FizzBuzz {
   store = inject(CounterStore);
-
-  fizzBuzz = fizzBuzzComputed(this.store.current);
 }

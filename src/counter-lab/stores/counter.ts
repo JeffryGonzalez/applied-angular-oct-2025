@@ -12,6 +12,7 @@ import {
   withStorageSync,
   withDevtools,
 } from '@angular-architects/ngrx-toolkit';
+import { withFizzBuzz } from './fizz-buzz-feature';
 
 const CountByValues = [1, 3, 5] as const;
 export type CountByValue = (typeof CountByValues)[number];
@@ -27,6 +28,7 @@ export const CounterStore = signalStore(
     by: 1,
     current: 0,
   }),
+  withFizzBuzz(),
   withProps(() => ({
     countByValues: CountByValues,
   })),

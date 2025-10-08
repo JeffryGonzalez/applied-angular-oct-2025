@@ -7,10 +7,12 @@ import { DemoService } from '../shared/demo-service';
   selector: 'app-root',
   template: `
     <app-nav-bar />
-    <main class="container mx-auto">
+    <main class="flex flex-col min-h-screen container mx-auto">
       <router-outlet />
     </main>
-    <footer>
+    <footer
+      class="footer sm:footer-horizontal footer-center bg-base-300 text-base-content p-4 sticky bottom-0"
+    >
       <p>Hit Count {{ service.hits() }}</p>
     </footer>
   `,

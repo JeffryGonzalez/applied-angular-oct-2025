@@ -45,6 +45,14 @@ export class Navbar {
       path: '/links',
     },
     {
+      label: 'Counter Lab',
+      path: '/counter-lab',
+    },
+    {
+      label: 'Counter Lab Events',
+      path: '/counter-lab-es',
+    },
+    {
       label: 'Support',
       path: '/support',
     },

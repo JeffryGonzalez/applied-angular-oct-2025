@@ -9,7 +9,11 @@ import {
   withViewTransitions,
 } from '@angular/router';
 
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withFetch,
+  withInterceptors,
+} from '@angular/common/http';
 import { DemoService } from '../shared/demo-service';
 import { OtherDemoService } from '../shared/other-demo-service';
 import { OtherService } from '../shared/other-service';
@@ -26,7 +30,7 @@ export const appConfig: ApplicationConfig = {
       withPreloading(PreloadAllModules),
       withViewTransitions(),
     ),
-    provideHttpClient(withFetch()),
+    provideHttpClient(withFetch(), withInterceptors([])), // HttpClient
   ],
 };
 

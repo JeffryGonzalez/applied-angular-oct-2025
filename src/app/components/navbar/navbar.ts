@@ -45,6 +45,10 @@ export class Navbar {
       path: '/links',
     },
     {
+      label: 'Useful Links RX',
+      path: '/links-rx',
+    },
+    {
       label: 'Counter Lab',
       path: '/counter-lab',
     },

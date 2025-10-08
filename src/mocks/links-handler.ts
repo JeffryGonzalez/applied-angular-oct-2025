@@ -1,6 +1,7 @@
 import { delay, http, HttpResponse } from 'msw';
+import { ApiLinkItem } from '../links/types';
 
-const Articles = [
+const Articles: ApiLinkItem[] = [
   {
     id: '1',
     title: 'Angular Documentation',
@@ -80,11 +81,24 @@ const Articles = [
     added: '2024-10-01T10:00:00.000Z',
   },
 ];
+let callCount = 0;
 export const articlesHandlers = [
   http.get('https://api.some-fake-server.com/links', async () => {
-    await delay(3000); // 100 - 200ms delay, simulating close to real world.
+    await delay(); // 100 - 200ms delay, simulating close to real world.
     //return HttpResponse.json([]);
+    if (callCount > 0) {
+      const additionalItem: ApiLinkItem = {
+        id: crypto.randomUUID(),
+        title: 'Added...',
+        description: 'Another one Added',
+        link: 'https://hypertheory.com',
+        added: new Date().toISOString(),
+      };
 
+      Articles[0].title = Articles[0].title + 'X';
+      Articles.push(additionalItem);
+    }
+    callCount++;
     return HttpResponse.json(Articles);
   }),
 ];

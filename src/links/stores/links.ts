@@ -40,7 +40,7 @@ export const LinksStore = signalStore(
   }),
   withHooks({
     onInit(store) {
-      // todo -- setInterval(() => store.linksResource.reload(), 5000);
+      setInterval(() => store.linksResource.reload(), 5000); // polling
       const savedSortOption = localStorage.getItem('sort-order');
       if (savedSortOption !== null) {
         store.changeSortOrder(savedSortOption as SortingOptions);

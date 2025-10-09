@@ -22,14 +22,14 @@ export const BooksStore = signalStore(
   }),
 
   withProps(() => ({
-    linksResource: httpResource<ApiBookItem[]>(() => ({
+    BooksResource: httpResource<ApiBookItem[]>(() => ({
       url: 'https://api.some-fake-server.com/books',
     })),
   })),
   withComputed((store) => {
     return {
       getNumberOfBooks: computed(
-        () => store.linksResource.value()?.length || 0,
+        () => store.BooksResource.value()?.length || 0,
       ),
     };
   }),
@@ -41,7 +41,7 @@ export const BooksStore = signalStore(
   }),
   withHooks({
     onInit(store) {
-      setInterval(() => store.linksResource.reload(), 5000); // polling
+      setInterval(() => store.BooksResource.reload(), 5000); // polling
       const savedSortOption = localStorage.getItem('book-sort-order');
       if (savedSortOption !== null) {
         store.changeSortOrder(savedSortOption as SortingOptions);

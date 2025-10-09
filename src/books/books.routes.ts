@@ -1,14 +1,14 @@
 import { Routes } from '@angular/router';
 import { Books } from './books';
-import { List } from './pages/list';
+import { Book } from './pages/book';
 export const BOOKS_ROUTES: Routes = [
   {
     path: '',
     component: Books,
     children: [
       {
-        path: 'list',
-        component: List,
+        path: 'Books',
+        component: Book,
       },
     ],
   },

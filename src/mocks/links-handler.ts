@@ -82,7 +82,7 @@ const Articles: ApiLinkItem[] = [
     added: '2024-10-01T10:00:00.000Z',
   },
 ];
-const callCount = 0;
+
 export const articlesHandlers = [
   http.post('https://api.some-fake-server.com/links', async ({ request }) => {
     await delay(3000);

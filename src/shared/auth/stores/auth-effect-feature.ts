@@ -39,7 +39,7 @@ export function withAuthEffects() {
         ),
         handleLogout$: events.on(authEvents.logoutRequested).pipe(
           tap(() => router.navigateByUrl('/')),
-          map(() => authEffectEvents.logoutSucceded()),
+          map(() => authEffectEvents.logoutSucceeded()),
         ),
 
         handleLoginFailed$: events.on(authEffectEvents.loginFailed).pipe(

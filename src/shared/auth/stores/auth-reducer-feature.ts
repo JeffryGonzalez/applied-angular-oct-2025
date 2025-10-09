@@ -20,7 +20,7 @@ export function withAuthReducers() {
       on(authEffectEvents.loginSucceeded, ({ payload }) => ({
         user: { id: payload.userid },
       })),
-      on(authEffectEvents.logoutSucceded, () => ({ user: null })),
+      on(authEffectEvents.logoutSucceeded, () => ({ user: null })),
     ),
   );
 }

@@ -15,7 +15,6 @@ import { exhaustMap, pipe, switchMap } from 'rxjs';
 import {
   setFulfilled,
   setLoading,
-  setRefreshing,
   withRequestStatus,
 } from '../../shared/request-status-feature';
 import { LinksApi } from '../services/links-api';

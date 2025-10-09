@@ -22,6 +22,6 @@ export const authEffectEvents = eventGroup({
   events: {
     loginSucceeded: type<{ userid: string }>(),
     loginFailed: type<{ errorMessage: string }>(),
-    logoutSucceded: type<void>(),
+    logoutSucceeded: type<void>(),
   },
 });

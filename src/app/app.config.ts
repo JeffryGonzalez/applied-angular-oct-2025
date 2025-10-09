@@ -42,7 +42,7 @@ export const appConfig: ApplicationConfig = {
 
 /* Providers Review
 
-  If I just add to providers a type, like providers: [GolfStore], 
+  If I just add to providers a type, like providers: [GolfStore],
   that is the same as saying providers: [{provide: GolfStore, useClass: GolfStore}]
 
 

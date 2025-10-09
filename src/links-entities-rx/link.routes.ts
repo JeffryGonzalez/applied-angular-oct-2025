@@ -6,6 +6,7 @@ import Demo from './pages/demo';
 import { LinksApi } from './services/links-api';
 import { Add } from './pages/add';
 import { isLoggedInGuard } from '../shared/routing/is-logged-in-guard';
+import { Details } from './pages/details';
 export const LINKS_ROUTES: Routes = [
   {
     path: '',
@@ -28,6 +29,10 @@ export const LINKS_ROUTES: Routes = [
         path: 'add',
         component: Add,
         canActivate: [isLoggedInGuard],
+      },
+      {
+        path: 'list/:id',
+        component: Details,
       },
     ],
   },

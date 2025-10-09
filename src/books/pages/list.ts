@@ -3,24 +3,34 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   signal,
 } from '@angular/core';
 import { Stats } from '../components/stats';
 import { BookApiItem } from '../types';
+import { BooksStore } from '../stores/books';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
   selector: 'app-books-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Stats],
+  imports: [Stats, TitleCasePipe],
   template: `
-    <h2 class="text-2xl font-bold mb-4">Books List</h2>
+    <h2 class="text-2xl font-bold mb-4">
+      Books List
+      <span class="text-sm font-light ml-2">
+        Page {{ currentPage() }} of {{ totalPages() }} Sorted by
+        {{ store.sortBy() | titlecase }}
+        {{ store.ascending() ? 'Ascending' : 'Descending' }}
+      </span>
+    </h2>
     <app-books-stats [books]="booksResource.value() || []"></app-books-stats>
 
     <!-- Books grid with pagination -->
     <div
       class="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
     >
-      @for (book of paginatedBooks(); track book.id) {
+      @for (book of sortedBooks(); track book.id) {
         <div
           class="card bg-base-100 shadow-sm h-full flex flex-col border-2 border-accent"
         >
@@ -95,10 +105,25 @@ import { BookApiItem } from '../types';
 })
 export class List {
   booksResource = httpResource<BookApiItem[]>(() => '/api/books');
-
+  store = inject(BooksStore);
   // Pagination
   currentPage = signal(1);
   pageSize = signal(8);
+
+  sortedBooks = computed(() => {
+    const books = this.paginatedBooks() || [];
+    const sortBy = this.store.sortBy();
+    const ascending = this.store.ascending();
+    return books.toSorted((a, b) => {
+      if (a[sortBy] < b[sortBy]) {
+        return ascending ? -1 : 1;
+      }
+      if (a[sortBy] > b[sortBy]) {
+        return ascending ? 1 : -1;
+      }
+      return 0;
+    });
+  });
 
   // Calculate paginated books
   paginatedBooks = computed(() => {

@@ -16,5 +16,10 @@ export class Books {
       link: 'list',
       requiresLogin: false,
     },
+    {
+      label: 'Preferences',
+      link: 'prefs',
+      requiresLogin: false,
+    },
   ]);
 }

@@ -50,6 +50,10 @@ export class Navbar {
       path: '/links-rx',
     },
     {
+      label: 'WaynesCounter',
+      path: '/counter',
+    },
+    {
       label: 'Counter Lab',
       path: '/counter-lab',
     },

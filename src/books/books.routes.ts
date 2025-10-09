@@ -10,6 +10,7 @@ export const BOOKS_ROUTES: Routes = [
         path: 'list',
         component: List,
       },
+      { path: '**', redirectTo: 'list' },
     ],
   },
 ];

@@ -1,30 +1,27 @@
-import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { injectDispatch } from '@ngrx/signals/events';
+import { authEvents } from '../../../../shared/auth/auth-events';
+import { AuthStore } from '../../../../shared/auth/stores/auth';
 
 @Component({
   selector: 'app-login-status',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
   template: `
-    @if (isLoggedIn()) {
-      <button (click)="logout()" class="btn btn-primary">
-        Logout {{ userName() }}
+    @if (store.isLoggedIn()) {
+      <button (click)="events.logoutRequested()" class="btn btn-primary">
+        Logout {{ store.userName() }}
       </button>
     } @else {
-      <button (click)="login()" class="btn btn-primary">Login</button>
+      <button (click)="events.loginRequested()" class="btn btn-primary">
+        Login
+      </button>
     }
   `,
   styles: ``,
 })
 export class LoginState {
-  isLoggedIn = signal(false);
-  userName = signal<string | null>(null);
+  store = inject(AuthStore);
 
-  login() {
-    this.isLoggedIn.set(true);
-    this.userName.set('Joe Schmidt');
-  }
-  logout() {
-    this.isLoggedIn.set(false);
-    this.userName.set(null);
-  }
+  events = injectDispatch(authEvents);
 }

@@ -21,6 +21,8 @@ import {
 import { LinksApi } from '../services/links-api';
 import { ApiLinkItem, SortingOptions } from '../types';
 import { withLinkSorting } from './link-sorting-feature';
+import { injectDispatch } from '@ngrx/signals/events';
+import { applicationErrorEvents } from '../../shared/errors/stores/errors';
 
 export const LinksStore = signalStore(
   withRequestStatus(),
@@ -34,7 +36,7 @@ export const LinksStore = signalStore(
   }),
   withMethods((state) => {
     const api = inject(LinksApi);
-
+    const errorEvents = injectDispatch(applicationErrorEvents);
     return {
       _load: rxMethod<void>(
         pipe(
@@ -42,7 +44,10 @@ export const LinksStore = signalStore(
             api.getLinks().pipe(
               tapResponse({
                 next: (r) => patchState(state, setEntities(r), setFulfilled()),
-                error: (e) => console.log(e),
+                error: () =>
+                  errorEvents.setError({
+                    error: 'Could Not Load Your Links. Sorry.',
+                  }),
               }),
             ),
           ),

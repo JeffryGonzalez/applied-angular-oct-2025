@@ -20,6 +20,11 @@ export const routes: Routes = [
     // By default it is "lazy loaded" - loaded on demand. I don't really like that usually, so I'll show you how to change it.
   },
   {
+    path: 'books',
+    loadChildren: () =>
+      import('../books/books.routes').then((l) => l.BOOKS_ROUTES),
+  },
+  {
     path: 'links',
     loadChildren: () =>
       import('../links/link.routes').then((l) => l.LINKS_ROUTES),

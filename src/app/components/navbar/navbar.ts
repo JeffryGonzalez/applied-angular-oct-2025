@@ -58,6 +58,10 @@ export class Navbar {
       path: '/counter-lab-es',
     },
     {
+      label: 'My Counter Lab',
+      path: '/counter',
+    },
+    {
       label: 'Books',
       path: '/books',
     },

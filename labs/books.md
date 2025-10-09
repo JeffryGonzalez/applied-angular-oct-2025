@@ -11,7 +11,7 @@ We want to create a component that lists out the data from the results of the HT
 I've already set up a route to get the "raw" list of books in the app. Click on "books" in the navbar.
 
 1. Use our `<app-section-nav />` on the `books.ts`.
-   1. It should have links to `list', which will be a page that shows the list of books. This should be the default thing shown if no other link is followed. (hint: `{path: '\*\*', redirectTo: 'list'})
+   1. It should have links to `list`, which will be a page that shows the list of books. This should be the default thing shown if no other link is followed. (hint: `{path: '\*\*', redirectTo: 'list'})
    2. On the list page (you can copy stuff from the `books.ts` if you want ):
       1. Display _only_ the `id, title, author, year, and pages` properties of the book.
       2. You can display this however you think is best. A table, a grid of cards. Refer to DaisyUi docs for inspiration.

@@ -65,5 +65,9 @@ export class Navbar {
       label: 'Support',
       path: '/support',
     },
+    {
+      label: 'Charles Counter',
+      path: '/counter',
+    },
   ]);
 }

@@ -1,13 +1,14 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
   inject,
   input,
 } from '@angular/core';
 import { SectionNavLink } from './types';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AuthStore } from '../auth/stores/auth';
+import { injectDispatch } from '@ngrx/signals/events';
+import { authEvents } from '../auth/auth-events';
 
 @Component({
   selector: 'app-section-nav',
@@ -21,10 +22,24 @@ import { AuthStore } from '../auth/stores/auth';
       <ul class="menu menu-horizontal px-4">
         @for (link of links(); track link.link) {
           <li>
-            @if (true) {
+            @if (link.requiresLogin && authStore.isLoggedIn()) {
               <a [routerLinkActive]="['underline']" [routerLink]="link.link">{{
                 link.label
               }}</a>
+            } @else {
+              @if (link.requiresLogin) {
+                <div class="tooltip tooltip-bottom" data-tip="Login required">
+                  <button (click)="aEvents.loginRequested()" class="opacity-50">
+                    {{ link.label }}
+                  </button>
+                </div>
+              } @else {
+                <a
+                  [routerLinkActive]="['underline']"
+                  [routerLink]="link.link"
+                  >{{ link.label }}</a
+                >
+              }
             }
           </li>
         }
@@ -39,17 +54,5 @@ export class SectionNav {
   sectionName = input<string | undefined>(undefined);
   links = input.required<SectionNavLink[]>();
   authStore = inject(AuthStore);
-
-  getAuthorizedLinks = computed(() => {
-    const authedLinks = this.links().filter(
-      (link) => link.requiresLogin && this.authStore.isLoggedIn(),
-    );
-    return authedLinks;
-  });
-  getAnonLinks = computed(() => {
-    return this.links().filter((link) => link.requiresLogin === false);
-  });
-  linkList = computed(() => {
-    return [...this.getAuthorizedLinks(), ...this.getAnonLinks()];
-  });
+  aEvents = injectDispatch(authEvents);
 }

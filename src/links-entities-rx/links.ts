@@ -4,7 +4,6 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
 import { LinksStore } from './stores/links';
 import { SectionNav } from '../shared/components/section-nav';
 import { SectionNavLink } from '../shared/components/types';
@@ -17,7 +16,6 @@ import { SectionNavLink } from '../shared/components/types';
   template: `
     @if (store.isLoaded()) {
       <app-section-nav sectionName="Useful Links" [links]="links()">
-        <p>This will be in the ng-content thing</p>
       </app-section-nav>
     } @else {
       <div class="alert alert-warning">Loading your Links</div>

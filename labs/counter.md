@@ -1,5 +1,7 @@
 # Counter
 
+> Note: Slightly changed for the Thursday lab
+
 Getting used to signals, routing, etc.
 
 You may end up needing a service.
@@ -8,7 +10,7 @@ You may end up needing a service.
 
 ### Feature Component
 
-Create a new folder in `src/` called `counter-lab`.
+Create a new folder in `src/` called `counter`.
 
 Create an Angular component in that folder called `counter.ts`.
 
@@ -24,7 +26,7 @@ All of the content you create for this feature should be inside this div.
 
 ### Routing
 
-In the `src/counter-lab` folder, create a file called `counter.routes.ts`.
+In the `src/counter` folder, create a file called `counter.routes.ts`.
 
 > Hint: You can use the `ngfr` snippet for this if you like.
 
@@ -36,24 +38,24 @@ This should expose a `const` called `COUNTER_ROUTES` with one route defined.
 It will look like this when you are done:
 
 ```typescript
-import { Routes } from '@angular/router';
-import { Counter } from './counter';
+import { Routes } from "@angular/router";
+import { Counter } from "./counter";
 export const LINKS_ROUTES: Routes = [
   {
-    path: '',
-    component: Counter
+    path: "",
+    component: Counter,
   },
 ];
 ```
 
-In the `app.routes.ts` file, create a new route called `counter-lab`, that _lazy loads_ the `./counter/counter.routes`.
+In the `app.routes.ts` file, create a new route called `counter`, that _lazy loads_ the `./counter/counter.routes`.
 
 It will look like this:
 
 ```
   {
-    path: 'counter-lab',
-    loadChildren: () =>import('../counter-lab/counter.routes').then(r => r.COUNTER_ROUTES)
+    path: 'counter',
+    loadChildren: () =>import('../counter/counter.routes').then(r => r.COUNTER_ROUTES)
   },
 ```
 
@@ -63,7 +65,7 @@ In the navigation component (`/scr/app/components/navbar/navbar.ts`), add a new 
 
 Run your app, go to `https://localhost:4200`. You should see a link in the navigation bar called 'Counter'. Click it.
 
-The URL should change to `http://localhost:4200/counter-lab`.
+The URL should change to `http://localhost:4200/counter`.
 
 You should see `Counter Stuff Here` on the page.
 
@@ -139,7 +141,7 @@ When it is a "FizzBuzz" value, display a dashed border alert with the `alert-suc
 
 If it's none of those, don't display anything.
 
-> **Extra Credit** - extract this to a component with an `input`. 
+> **Extra Credit** - extract this to a component with an `input`.
 
 ### Check Your Work
 

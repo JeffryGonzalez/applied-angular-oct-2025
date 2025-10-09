@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 import { Books } from './books';
 import { List } from './pages/list';
+import { Prefs } from './pages/prefs';
+import { Details } from './pages/details';
 export const BOOKS_ROUTES: Routes = [
   {
     path: '',
@@ -9,6 +11,14 @@ export const BOOKS_ROUTES: Routes = [
       {
         path: 'list',
         component: List,
+      },
+      {
+        path: 'prefs',
+        component: Prefs,
+      },
+      {
+        path: 'details/:id',
+        component: Details,
       },
     ],
   },

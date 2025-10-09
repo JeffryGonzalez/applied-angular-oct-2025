@@ -7,3 +7,8 @@ export type ApiLinkItem = {
 };
 
 export type SortingOptions = 'NewestFirst' | 'OldestFirst';
+
+export type ApiLinkCreateItem = Pick<
+  ApiLinkItem,
+  'title' | 'description' | 'link'
+>;

@@ -1,25 +1,24 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { LinksStore } from './stores/links';
+import { SectionNav } from '../shared/components/section-nav';
+import { SectionNavLink } from '../shared/components/types';
 
 @Component({
   selector: 'app-links',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [LinksStore],
-  imports: [RouterLink, RouterOutlet],
+  imports: [SectionNav],
   template: `
     @if (store.isLoaded()) {
-      <div class="flex flex-row gap-4">
-        <a class="link" routerLink="list">List</a>
-        <a class="link" routerLink="prefs">Prefs</a>
-        <a class="link" routerLink="add">Add A Link</a>
-      </div>
-      <div class="alert alert-info">
-        <p>There are {{ store.getNumberOfLinks() }} Links Available!</p>
-      </div>
-      <div>
-        <router-outlet />
-      </div>
+      <app-section-nav sectionName="Useful Links" [links]="links()">
+        <p>This will be in the ng-content thing</p>
+      </app-section-nav>
     } @else {
       <div class="alert alert-warning">Loading your Links</div>
     }
@@ -28,4 +27,27 @@ import { LinksStore } from './stores/links';
 })
 export class Links {
   store = inject(LinksStore);
+
+  links = signal<SectionNavLink[]>([
+    {
+      label: 'List',
+      link: 'list',
+      requiresLogin: false,
+    },
+    {
+      label: 'Preferences',
+      link: 'prefs',
+      requiresLogin: false,
+    },
+    {
+      label: 'Add',
+      link: 'add',
+      requiresLogin: true,
+    },
+    {
+      label: 'Demos',
+      link: 'demo',
+      requiresLogin: false,
+    },
+  ]);
 }

@@ -9,9 +9,9 @@ import {
   withHooks,
   withMethods,
 } from '@ngrx/signals';
-import { setEntities, withEntities } from '@ngrx/signals/entities';
+import { addEntity, setEntities, withEntities } from '@ngrx/signals/entities';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
-import { exhaustMap, pipe } from 'rxjs';
+import { exhaustMap, pipe, switchMap } from 'rxjs';
 import {
   setFulfilled,
   setLoading,
@@ -19,7 +19,7 @@ import {
   withRequestStatus,
 } from '../../shared/request-status-feature';
 import { LinksApi } from '../services/links-api';
-import { ApiLinkItem, SortingOptions } from '../types';
+import { ApiLinkCreateItem, ApiLinkItem, SortingOptions } from '../types';
 import { withLinkSorting } from './link-sorting-feature';
 import { injectDispatch } from '@ngrx/signals/events';
 import { applicationErrorEvents } from '../../shared/errors/stores/errors';
@@ -38,6 +38,18 @@ export const LinksStore = signalStore(
     const api = inject(LinksApi);
     const errorEvents = injectDispatch(applicationErrorEvents);
     return {
+      addLink: rxMethod<ApiLinkCreateItem>(
+        pipe(
+          switchMap((link) =>
+            api.addLink(link).pipe(
+              tapResponse({
+                next: (link) => patchState(state, addEntity(link)),
+                error: () => console.error('Cannot add the link'),
+              }),
+            ),
+          ),
+        ),
+      ),
       _load: rxMethod<void>(
         pipe(
           exhaustMap(() =>
@@ -61,10 +73,10 @@ export const LinksStore = signalStore(
     onInit(store) {
       patchState(store, setLoading());
       store._load();
-      setInterval(() => {
-        patchState(store, setRefreshing());
-        store._load();
-      }, 5000); // polling
+      // setInterval(() => {
+      //   patchState(store, setRefreshing());
+      //   store._load();
+      // }, 5000); // polling
       const savedSortOption = localStorage.getItem('sort-order');
       if (savedSortOption !== null) {
         store.changeSortOrder(savedSortOption as SortingOptions);

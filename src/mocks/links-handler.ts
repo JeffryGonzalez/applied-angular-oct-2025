@@ -1,5 +1,6 @@
 import { delay, http, HttpResponse } from 'msw';
 import { ApiLinkItem } from '../links/types';
+import { ApiLinkCreateItem } from '../links-entities-rx/types';
 
 const Articles: ApiLinkItem[] = [
   {
@@ -83,6 +84,19 @@ const Articles: ApiLinkItem[] = [
 ];
 const callCount = 0;
 export const articlesHandlers = [
+  http.post('https://api.some-fake-server.com/links', async ({ request }) => {
+    await delay(3000);
+    const sentData = (await request.json()) as ApiLinkCreateItem;
+    const newItem = {
+      id: crypto.randomUUID(),
+      added: new Date().toISOString(),
+      ...sentData,
+    };
+
+    Articles.push(newItem);
+
+    return HttpResponse.json(newItem);
+  }),
   http.get('https://api.some-fake-server.com/links', async () => {
     await delay(); // 100 - 200ms delay, simulating close to real world.
     //return HttpResponse.json([]);

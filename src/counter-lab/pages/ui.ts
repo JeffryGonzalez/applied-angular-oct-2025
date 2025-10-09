@@ -20,7 +20,7 @@ import { CounterStore } from '../stores/counter';
     >
       -
     </button>
-    <span>{{ current() }}</span>
+    <span>{{ store.current() }}</span>
     <button (click)="store.increment()" class="btn btn-primary">+</button>
     <div>
       <app-counter-fizzbuzz />
@@ -30,5 +30,4 @@ import { CounterStore } from '../stores/counter';
 })
 export class Ui {
   store = inject(CounterStore);
-  current = this.store.current;
 }

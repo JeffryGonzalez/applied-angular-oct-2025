@@ -4,11 +4,12 @@ import { NavbarCenter } from './components/navbar-center';
 import { NavbarSide } from './components/navbar-side';
 import { NavbarLink } from './types';
 import { NavbarHamburger } from './components/navbar-hamburger';
+import { LoginState } from './components/login-state';
 
 @Component({
   selector: 'app-nav-bar',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, NavbarCenter, NavbarSide, NavbarHamburger],
+  imports: [RouterLink, NavbarCenter, NavbarSide, NavbarHamburger, LoginState],
   template: `
     <div class="navbar bg-base-100 shadow-sm">
       <div class="navbar-start">
@@ -24,7 +25,7 @@ import { NavbarHamburger } from './components/navbar-hamburger';
         <app-navbar-center [links]="links()" />
       </div>
       <div class="navbar-end">
-        <a class="btn">Button</a>
+        <app-login-status />
       </div>
     </div>
   `,

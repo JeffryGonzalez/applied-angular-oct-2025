@@ -30,6 +30,11 @@ export const routes: Routes = [
       import('../links-entities-rx/link.routes').then((l) => l.LINKS_ROUTES),
   },
   {
+    path: 'counter',
+    loadChildren: () =>
+      import('../counter/counter.routes').then((r) => r.COUNTER_ROUTES),
+  },
+  {
     path: 'counter-lab',
     loadChildren: () =>
       import('../counter-lab/counter.routes').then((l) => l.COUNTER_ROUTES),

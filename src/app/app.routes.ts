@@ -45,6 +45,11 @@ export const routes: Routes = [
       import('../books/books.routes').then((b) => b.BOOKS_ROUTES),
   },
   {
+    path: 'counter',
+    loadChildren: () =>
+      import('../counter/counter.routes').then((r) => r.COUNTER_ROUTES),
+  },
+  {
     path: '**',
     redirectTo: 'dashboard',
   },

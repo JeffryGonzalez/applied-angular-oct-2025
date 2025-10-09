@@ -1,3 +1,5 @@
+import { title } from 'process';
+
 export type Book = {
   author: string;
   country: string;
@@ -9,3 +11,23 @@ export type Book = {
   year: number;
   id: string;
 };
+
+export type BooksState = {
+  sortOptions: SortingOptions;
+};
+
+export type SortingOptions = {
+  sortBy: SortableProperty;
+  sortDirection: SortDirection;
+};
+
+export enum SortableProperty {
+  title,
+  author,
+  year,
+}
+
+export enum SortDirection {
+  ascending,
+  descending,
+}

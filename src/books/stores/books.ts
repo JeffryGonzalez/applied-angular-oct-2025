@@ -1,9 +1,28 @@
 import { httpResource } from '@angular/common/http';
-import { signalStore, withComputed, withProps } from '@ngrx/signals';
-import { Book } from '../types';
+import {
+  patchState,
+  signalStore,
+  withComputed,
+  withMethods,
+  withProps,
+  withState,
+} from '@ngrx/signals';
+import {
+  Book,
+  BooksState,
+  SortableProperty,
+  SortDirection,
+  SortingOptions,
+} from '../types';
 import { computed } from '@angular/core';
 
 export const BooksStore = signalStore(
+  withState<BooksState>({
+    sortOptions: {
+      sortBy: SortableProperty.title,
+      sortDirection: SortDirection.ascending,
+    },
+  }),
   withProps(() => ({
     booksResource: httpResource<Book[]>(() => '/api/books'),
   })),
@@ -36,4 +55,7 @@ export const BooksStore = signalStore(
       }),
     };
   }),
+  withMethods((state) => ({
+    updateSortOptions: (options: SortingOptions) => patchState(),
+  })),
 );

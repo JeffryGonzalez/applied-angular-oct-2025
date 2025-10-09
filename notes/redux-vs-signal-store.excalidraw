@@ -1,0 +1,51 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://marketplace.visualstudio.com/items?itemName=pomdtr.excalidraw-editor",
+  "elements": [
+    {
+      "id": "XvQsLTUxQ6qawj4bzmuAj",
+      "type": "text",
+      "x": 398,
+      "y": 219,
+      "width": 1193.519287109375,
+      "height": 175,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 2,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "a0",
+      "roundness": null,
+      "seed": 1150050185,
+      "version": 262,
+      "versionNonce": 567756071,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1759955355023,
+      "link": null,
+      "locked": false,
+      "text": "Redux - (ngrx/store)\n    - This is a \"event sourcing\" pattern.\n    - You don't really have \"state\" - your state is an accumulation of initial state, plus all the events (actions) that have \n      happened.\n\n    - challenge: \"cause and effect\" is really confusing.\n",
+      "fontSize": 20,
+      "fontFamily": 5,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "containerId": null,
+      "originalText": "Redux - (ngrx/store)\n    - This is a \"event sourcing\" pattern.\n    - You don't really have \"state\" - your state is an accumulation of initial state, plus all the events (actions) that have \n      happened.\n\n    - challenge: \"cause and effect\" is really confusing.\n",
+      "autoResize": true,
+      "lineHeight": 1.25
+    }
+  ],
+  "appState": {
+    "gridSize": 20,
+    "gridStep": 5,
+    "gridModeEnabled": false,
+    "viewBackgroundColor": "#ffffff"
+  },
+  "files": {}
+}

@@ -10,6 +10,7 @@ import {
 } from '@ngrx/signals';
 import { on, withReducer } from '@ngrx/signals/events';
 import { counterPrefsEvents, counterUiEvents } from './actions';
+import { withDevtools } from '@angular-architects/ngrx-toolkit';
 
 const CountByValues = [1, 3, 5] as const;
 export type CountByValue = (typeof CountByValues)[number];
@@ -20,7 +21,9 @@ type CounterState = {
 };
 
 export const CounterStore = signalStore(
+  withDevtools('events-store'),
   withState<CounterState>({ countBy: 1, current: 0 }),
+
   withProps(() => ({
     countByValues: CountByValues,
   })),

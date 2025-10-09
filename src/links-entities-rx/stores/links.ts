@@ -27,7 +27,6 @@ export const LinksStore = signalStore(
   withDevtools('links-store'),
   withEntities<ApiLinkItem>(),
   withLinkSorting(),
-
   withComputed((store) => {
     return {
       getNumberOfLinks: computed(() => store.entities().length),
@@ -35,6 +34,7 @@ export const LinksStore = signalStore(
   }),
   withMethods((state) => {
     const api = inject(LinksApi);
+
     return {
       _load: rxMethod<void>(
         pipe(

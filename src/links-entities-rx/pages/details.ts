@@ -6,8 +6,10 @@ import { Component, ChangeDetectionStrategy, input } from '@angular/core';
   imports: [],
   template: `
     <div class="p-4">
-      <h1 class="text-2xl font-bold">Link Details {{ id() }}</h1>
-      <p class="mt-2">Here you can view the details of the selected link.</p>
+      <h1 class="text-2xl font-bold">Link Details</h1>
+      <p class="mt-2">
+        Here you can view the details of the selected link. {{ id() }}
+      </p>
     </div>
   `,
   styles: ``,
